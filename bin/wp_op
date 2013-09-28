@@ -13,12 +13,6 @@ class CLBulkConverter
     download_attachments
   end
 
-  def build_dependencies
-    @logger = Logger.new
-    @importer = Importer.new( @logger )
-    @writer = PostWriter.new
-  end
-
   def import_files
     @logger.notify "Loading posts from #{@xml}\n"
     @importer.parse_wordpress @xml
