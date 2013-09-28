@@ -9,22 +9,27 @@ class Importer
   end
 
   def parse_wordpress xml
-    posts = []
+    @posts = []
+    @attachments = []
     @wp_xml = Nokogiri::XML( File.open(xml) )
     @wp_xml.remove_namespaces!
-    @wp_xml.css('item').each do |i|
-      post = post_from_node i
-      if post
-        posts << post
-        log_post_read( posts.last )
-      end
+    @wp_xml.css('item').each do |item|
+      process_item item
     end
-    #temp_show_posts posts
-    posts
+    show_posts
+    show_attachments
   end
 
-  def temp_show_posts posts
-    posts.each do |p|
+  def process_item item
+    if item.at_css('attachment_url')
+      @attachments << AttachmentBuilder.from_item(item)
+    else
+      @posts << PostBuilder.from_item(item)
+    end
+  end
+
+  def show_posts
+    @posts.each do |p|
       @logger.warn "***********************"
       @logger.warn p.title
       @logger.warn "***********************"
@@ -34,23 +39,12 @@ class Importer
     end
   end
 
-  def post_from_node node
-    if node.at_css('attachment_url')
-      # This isn't actually a post, make this decision prior to this method!!!!
-      @logger.warn "Found attachment_url: #{node.at_css('attachment_url').text}"
-      return nil
-    else
-      p = Post.new
-      p.title = node.at_css('title').text
-      p.content = node.at_css('encoded').text
-      p.published = (node.at_css('status').text == 'draft')
-      p.date = node.at_css('pubDate').text
-      p
+  def show_attachments
+    @attachments.each do |a|
+      @logger.warn "***********************"
+      @logger.warn a.url
+      @logger.warn "***********************\n"
     end
-  end
-
-  def log_post_read(post)
-    @logger.notify "... Reading #{post.title}"
   end
 
 end
