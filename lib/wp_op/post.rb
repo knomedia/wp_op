@@ -22,7 +22,7 @@ class Post
   end
 
   def pub_date_time
-    DateTime.parse(@date).strftime("%Y-%m-%e %H:%M")
+    DateTime.parse(@date).strftime("%Y-%m-%d %H:%M")
   end
 
 end
