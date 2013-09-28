@@ -36,7 +36,7 @@ class PostWriter
     m = "---\n"
     m += "layout: post\n"
     m += "title: \"#{post.title}\"\n"
-    m += "date: #{post.pub_date}\n"
+    m += "date: #{post.pub_date_time}\n"
     m += "published: #{post.published}\n"
     m += "footer: true\n"
     m += "comments: false\n"

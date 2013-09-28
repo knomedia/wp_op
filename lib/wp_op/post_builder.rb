@@ -7,7 +7,7 @@ class PostBuilder
     p.title = item.at_css('title').text
     p.content = item.at_css('encoded').text
     p.published = (item.at_css('status').text == 'publish')
-    p.date = item.at_css('pubDate').text
+    p.date = item.at_css('post_date').text
     p
   end
 

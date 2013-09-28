@@ -16,4 +16,8 @@ class Post
     DateTime.parse(@date).to_date.to_s
   end
 
+  def pub_date_time
+    DateTime.parse(@date).strftime("%Y-%m-%e %H:%M")
+  end
+
 end
