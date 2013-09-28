@@ -1,13 +1,21 @@
 #!/usr/bin/env ruby
 
 require 'pry'
+require 'wp_op'
 
 class CLBulkConverter
   attr_accessor :output_dir
 
   def build_files(xml, output)
-    @importer = Importer.new( xml )
+    build_dependencies
+    @logger.notify "Loading posts from #{xml}\n"
+    posts = @importer.parse_wordpress xml
+  end
 
+  def build_dependencies
+    @logger = Logger.new
+    @importer = Importer.new( @logger )
+    @writer = Writer.new
   end
 
 end
@@ -16,5 +24,5 @@ end
 
 c = CLBulkConverter.new
 wp_xml  = ARGV.shift
-passed_output= ARGV.shift
+output_dir = ARGV.shift
 c.build_files( wp_xml, output_dir )
