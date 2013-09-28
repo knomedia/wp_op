@@ -1,3 +1,5 @@
+require 'date'
+
 class Post
   attr_accessor :title
   attr_accessor :content

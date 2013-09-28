@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class PostWriter
 
   def initialize( logger )
