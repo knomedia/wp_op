@@ -4,25 +4,49 @@ require 'pry'
 require 'wp_op'
 
 class CLBulkConverter
-  attr_accessor :output_dir
 
-  def build_files(xml, output)
+  def build(xml, output)
+    @xml = xml
+    @output = output
     build_dependencies
-    @logger.notify "Loading posts from #{xml}\n"
-    posts = @importer.parse_wordpress xml
+    import_files
+    write_posts
+    download_attachments
   end
 
   def build_dependencies
     @logger = Logger.new
     @importer = Importer.new( @logger )
-    @writer = Writer.new
+    @writer = PostWriter.new
+  end
+
+  def import_files
+    @logger.notify "Loading posts from #{@xml}\n"
+    @importer.parse_wordpress @xml
+  end
+
+  def write_posts
+    @writer.write_files @importer.posts, @output
+
+  end
+
+
+  def download_attachments
+
+  end
+
+  def build_dependencies
+    @logger = Logger.new
+    @importer = Importer.new @logger
+    @writer = PostWriter.new @logger
   end
 
 end
 
 
 
-c = CLBulkConverter.new
 wp_xml  = ARGV.shift
-output_dir = ARGV.shift
-c.build_files( wp_xml, output_dir )
+output_dir = ARGV.shift || 'source/_posts/'
+
+c = CLBulkConverter.new
+c.build wp_xml, output_dir

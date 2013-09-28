@@ -3,6 +3,7 @@ require 'pry'
 
 class Importer
   attr_accessor :wp_xml
+  attr_accessor :posts
 
   def initialize( logger )
     @logger = logger
@@ -16,8 +17,6 @@ class Importer
     @wp_xml.css('item').each do |item|
       process_item item
     end
-    show_posts
-    show_attachments
   end
 
   def process_item item
