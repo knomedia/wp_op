@@ -9,9 +9,12 @@ class Post
 
 
   def to_file_name
-    d = DateTime.parse(@date).to_date.to_s
     t = @title.gsub(/\s/, '-').downcase
-    "#{d}-#{t}"
+    "#{pub_date}-#{t}"
+  end
+
+  def pub_date
+    DateTime.parse(@date).to_date.to_s
   end
 
 end
