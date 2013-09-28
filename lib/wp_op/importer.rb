@@ -1,5 +1,4 @@
 require 'nokogiri'
-require 'pry'
 
 class Importer
   attr_accessor :wp_xml
