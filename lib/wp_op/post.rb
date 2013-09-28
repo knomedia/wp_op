@@ -6,6 +6,11 @@ class Post
   attr_accessor :date
   attr_accessor :tags
   attr_accessor :published
+  attr_accessor :categories
+
+  def initialize
+    @categories = []
+  end
 
   def to_file_name
     t = @title.gsub(/\s/, '-').downcase

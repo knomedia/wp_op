@@ -40,9 +40,27 @@ class PostWriter
     m += "published: #{post.published}\n"
     m += "footer: true\n"
     m += "comments: false\n"
-    m += "categories:\n"
+    m += "categories: #{create_categories(post)}\n"
     m += "---\n\n"
     m
+  end
+
+  def create_categories post
+    cats = ""
+    return cats if post.categories.length == 0
+    if post.categories.length < 2
+      cats = post.categories.first
+    else
+      cats = "["
+      post.categories.each_with_index do |c, i|
+        if i != 0
+          cats += ", "
+        end
+        cats += "#{c}"
+      end
+      cats += "]"
+    end
+    cats
   end
 
   def verify_directory
