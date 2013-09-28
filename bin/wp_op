@@ -26,7 +26,6 @@ class CLBulkConverter
 
   def write_posts
     @writer.write_files @importer.posts, @output
-
   end
 
 

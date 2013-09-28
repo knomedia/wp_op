@@ -7,7 +7,6 @@ class Post
   attr_accessor :tags
   attr_accessor :published
 
-
   def to_file_name
     t = @title.gsub(/\s/, '-').downcase
     "#{pub_date}-#{t}"
