@@ -1,6 +1,6 @@
-# WpOp
+# wp_op
 
-TODO: Write a gem description
+A command line Wordpress to Octopress xml conversion tool
 
 ## Installation
 
@@ -27,3 +27,4 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
