@@ -11,6 +11,7 @@ class Importer
   def parse_wordpress xml
     @posts = []
     @attachments = []
+    @logger.notify "Loading posts from #{xml}\n"
     @wp_xml = Nokogiri::XML( File.open(xml) )
     @wp_xml.remove_namespaces!
     @wp_xml.css('item').each do |item|
