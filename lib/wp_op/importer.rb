@@ -20,7 +20,7 @@ class Importer
   end
 
   def process_item item
-    if item.at_css('attachment_url')
+    if item.at_css('post_type').text == 'attachment'
       @attachments << AttachmentBuilder.from_item(item)
     else
       @posts << PostBuilder.from_item(item)
